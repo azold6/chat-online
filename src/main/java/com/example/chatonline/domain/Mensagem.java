@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-public class Mensagens implements Serializable {
+public class Mensagem implements Serializable {
     private static final Long serialVersionUID = 1L;
 
     @Id
@@ -23,10 +23,10 @@ public class Mensagens implements Serializable {
     @JoinColumn(name = "chat_id")
     Chat chat;
 
-    public Mensagens() {
+    public Mensagem() {
     }
 
-    public Mensagens(Integer id, String texto, Date dataEnvio) {
+    public Mensagem(Integer id, String texto, Date dataEnvio) {
         this.id = id;
         this.texto = texto;
         this.dataEnvio = dataEnvio;
@@ -60,7 +60,7 @@ public class Mensagens implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Mensagens chat = (Mensagens) o;
+        Mensagem chat = (Mensagem) o;
         return Objects.equals(id, chat.id);
     }
 

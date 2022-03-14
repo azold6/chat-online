@@ -19,7 +19,7 @@ public class Chat implements Serializable {
     List<Usuario> usuarios = new ArrayList<>();
 
     @OneToMany(mappedBy = "chat")
-    List<Mensagens> mensagens = new ArrayList<>();
+    List<Mensagem> mensagens = new ArrayList<>();
 
     public Chat() {
     }

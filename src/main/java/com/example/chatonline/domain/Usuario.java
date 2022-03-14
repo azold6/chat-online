@@ -21,7 +21,7 @@ public class Usuario implements Serializable {
     private Status status;
 
     @OneToMany(mappedBy = "usuario")
-    List<Mensagens> mensagens = new ArrayList<>();
+    List<Mensagem> mensagens = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "chat_id")
