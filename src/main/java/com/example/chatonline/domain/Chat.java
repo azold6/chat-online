@@ -1,16 +1,25 @@
 package com.example.chatonline.domain;
 
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
+@Entity
 public class Chat implements Serializable {
     private static final Long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    //implementar - lista de usuarios logados
-    //implementar - mensagens
+    @OneToMany(mappedBy = "chat")
+    List<Usuario> usuarios = new ArrayList<>();
+
+    @OneToMany(mappedBy = "chat")
+    List<Mensagens> mensagens = new ArrayList<>();
 
     public Chat() {
     }

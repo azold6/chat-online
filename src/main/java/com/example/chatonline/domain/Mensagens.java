@@ -1,17 +1,27 @@
 package com.example.chatonline.domain;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+@Entity
 public class Mensagens implements Serializable {
     private static final Long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String texto;
     private Date dataEnvio;
 
-    //implementar - usuario
+    @ManyToOne
+    @JoinColumn(name= "usuario_id")
+    Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "chat_id")
+    Chat chat;
 
     public Mensagens() {
     }

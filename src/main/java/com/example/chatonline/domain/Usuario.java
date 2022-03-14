@@ -1,28 +1,43 @@
 package com.example.chatonline.domain;
 
+import com.example.chatonline.domain.enums.Status;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+@Entity
 public class Usuario implements Serializable {
     private static final Long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
     private String email;
     private String senha;
+    private Status status;
 
-    //implementar - status
-    //implementar - mensagens do usuario
-    //implementar - chat em que participa
+    @OneToMany(mappedBy = "usuario")
+    List<Mensagens> mensagens = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "chat_id")
+    Chat chat;
+
+    //implementar - chat em que participa(somente para o caso de vários chats)
 
     public Usuario() {
     }
 
-    public Usuario(Integer id, String nome, String email, String senha) {
+    public Usuario(Integer id, String nome, String email, String senha, Status status) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.status = status;
     }
 
     public Integer getId() {
@@ -55,6 +70,14 @@ public class Usuario implements Serializable {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @Override
