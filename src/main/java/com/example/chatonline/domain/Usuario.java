@@ -37,7 +37,7 @@ public class Usuario implements Serializable {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.status = status;
+        this.status = Status.OFFLINE; //padrão
     }
 
     public Integer getId() {

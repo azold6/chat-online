@@ -23,4 +23,14 @@ public class UsuarioService {
         Optional<Usuario> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(1, "Não encontrado"));
     }
+
+    public Usuario insert(Usuario obj){
+        if(this.findByEmail(obj.getEmail()) != null) throw new IllegalArgumentException("E-mail já cadastrado");
+        return repo.save(obj);
+    }
+
+    public Usuario findByEmail(String email){
+        Optional<Usuario> obj = repo.findByEmail(email);
+        return obj.orElseThrow(() -> new ObjectNotFoundException(1, "Não encontrado"));
+    }
 }
