@@ -1,6 +1,7 @@
 package com.example.chatonline.domain;
 
 import com.example.chatonline.domain.enums.Status;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,7 +19,7 @@ public class Usuario implements Serializable {
     private String nome;
     private String email;
     private String senha;
-    private Status status;
+    private Status status = Status.OFFLINE;
 
     @OneToMany(mappedBy = "usuario")
     List<Mensagem> mensagens = new ArrayList<>();
@@ -32,12 +33,11 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(Integer id, String nome, String email, String senha, Status status) {
+    public Usuario(Integer id, String nome, String email, String senha) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.status = Status.OFFLINE; //padrão
     }
 
     public Integer getId() {
