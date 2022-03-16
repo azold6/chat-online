@@ -1,5 +1,7 @@
 package com.example.chatonline.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -17,19 +19,21 @@ public class Mensagem implements Serializable {
 
     @ManyToOne
     @JoinColumn(name= "usuario_id")
-    Usuario usuario;
+    private Usuario usuario;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "chat_id")
-    Chat chat;
+    private Chat chat;
 
     public Mensagem() {
     }
 
-    public Mensagem(Integer id, String texto, Date dataEnvio) {
+    public Mensagem(Integer id, String texto, Date dataEnvio, Usuario usuario) {
         this.id = id;
         this.texto = texto;
         this.dataEnvio = dataEnvio;
+        this.usuario = usuario;
     }
 
     public Integer getId() {
@@ -54,6 +58,22 @@ public class Mensagem implements Serializable {
 
     public void setDataEnvio(Date dataEnvio) {
         this.dataEnvio = dataEnvio;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Chat getChat() {
+        return chat;
+    }
+
+    public void setChat(Chat chat) {
+        this.chat = chat;
     }
 
     @Override
