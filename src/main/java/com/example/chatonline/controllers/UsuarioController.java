@@ -1,4 +1,4 @@
-package com.example.chatonline.resources;
+package com.example.chatonline.controllers;
 
 
 import com.example.chatonline.domain.Usuario;
@@ -7,14 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/usuarios")
-public class UsuarioResource {
+public class UsuarioController {
 
     @Autowired
     UsuarioService usuarioService;
