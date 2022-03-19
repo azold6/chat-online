@@ -2,6 +2,7 @@ package com.example.chatonline.controllers;
 
 
 import com.example.chatonline.domain.Usuario;
+import com.example.chatonline.services.EmailService;
 import com.example.chatonline.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,9 @@ public class UsuarioController {
 
     @Autowired
     UsuarioService usuarioService;
+
+    @Autowired
+    EmailService emailService;
 
     @GetMapping
     public ResponseEntity<List<Usuario>> findAll(){
@@ -34,6 +38,7 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<Void> insert(@RequestBody Usuario obj){
         obj = usuarioService.insert(obj);
+        emailService.sendEmail(obj);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
