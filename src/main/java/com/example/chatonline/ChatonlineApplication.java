@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -24,6 +25,9 @@ public class ChatonlineApplication implements CommandLineRunner {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+
 	public static void main(String[] args) {
 		SpringApplication.run(ChatonlineApplication.class, args);
 	}
@@ -31,9 +35,9 @@ public class ChatonlineApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Usuario user1 = new Usuario(null, "Alex", "alex@gmail.com", "123");
-		Usuario user2 = new Usuario(null, "Bruna", "bruna@gmail.com", "123", Status.ONLINE);
-		Usuario user3 = new Usuario(null, "Maria", "maria@gmail.com", "123", Status.ONLINE);
+		Usuario user1 = new Usuario(null, "Alex", "alex@gmail.com", encoder.encode("123"));
+		Usuario user2 = new Usuario(null, "Bruna", "bruna@gmail.com", encoder.encode("123"), Status.ONLINE);
+		Usuario user3 = new Usuario(null, "Maria", "maria@gmail.com", encoder.encode("123"), Status.ONLINE);
 
 		Mensagem msg1 = new Mensagem(null, "Oi, tudo bom?", new Date(2022, 03, 15), user1);
 		Mensagem msg2 = new Mensagem(null, "Tudo bem e com você?", new Date(2022, 03, 15), user2);

@@ -1,6 +1,7 @@
 package com.example.chatonline.domain;
 
 import com.example.chatonline.domain.enums.Status;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -18,8 +19,10 @@ public class Usuario implements Serializable {
     private Integer id;
     private String nome;
     private String email;
-    private String senha;
     private Status status = Status.OFFLINE;
+
+    @JsonIgnore
+    private String senha;
 
     @OneToMany(mappedBy = "usuario")
     List<Mensagem> mensagens = new ArrayList<>();
