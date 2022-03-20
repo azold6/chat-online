@@ -1,14 +1,13 @@
 package com.example.chatonline.domain;
 
+import com.example.chatonline.domain.enums.Perfil;
 import com.example.chatonline.domain.enums.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class Usuario implements Serializable {
@@ -31,9 +30,14 @@ public class Usuario implements Serializable {
     @JoinColumn(name = "chat_id")
     Chat chat;
 
+    @ElementCollection(fetch=FetchType.EAGER)
+    @CollectionTable(name="PROFILES")
+    private Set<Integer> profiles = new HashSet<>();
+
     //implementar - chat em que participa(somente para o caso de vários chats)
 
     public Usuario() {
+        addPerfis(Perfil.USUARIO);
     }
 
     public Usuario(Integer id, String nome, String email, String senha) {
@@ -41,6 +45,7 @@ public class Usuario implements Serializable {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        addPerfis(Perfil.USUARIO);
     }
 
     public Usuario(Integer id, String nome, String email, String senha, Status status) {
@@ -49,6 +54,7 @@ public class Usuario implements Serializable {
         this.email = email;
         this.senha = senha;
         this.status = status;
+        addPerfis(Perfil.USUARIO);
     }
 
     public Integer getId() {
@@ -81,6 +87,14 @@ public class Usuario implements Serializable {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Set<Perfil> getPerfis() {
+        return profiles.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+    }
+
+    public void addPerfis(Perfil profile) {
+        profiles.add(profile.getCod());
     }
 
     public Status getStatus() {

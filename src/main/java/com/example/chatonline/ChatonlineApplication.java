@@ -2,6 +2,7 @@ package com.example.chatonline;
 
 import com.example.chatonline.domain.Mensagem;
 import com.example.chatonline.domain.Usuario;
+import com.example.chatonline.domain.enums.Perfil;
 import com.example.chatonline.domain.enums.Status;
 import com.example.chatonline.repositories.MensagemRepository;
 import com.example.chatonline.repositories.UsuarioRepository;
@@ -36,6 +37,8 @@ public class ChatonlineApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		Usuario user1 = new Usuario(null, "Alex", "alex@gmail.com", encoder.encode("123"));
+		user1.addPerfis(Perfil.ADMIN);
+
 		Usuario user2 = new Usuario(null, "Bruna", "bruna@gmail.com", encoder.encode("123"), Status.ONLINE);
 		Usuario user3 = new Usuario(null, "Maria", "maria@gmail.com", encoder.encode("123"), Status.ONLINE);
 
