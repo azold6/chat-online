@@ -1,5 +1,8 @@
-package com.example.chatonline.security;
+package com.example.chatonline.config;
 
+import com.example.chatonline.security.JWTAuthenticationFilter;
+import com.example.chatonline.security.JWTAuthorizationFilter;
+import com.example.chatonline.security.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +34,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] PUBLIC_MATCHERS_GET = {
             "/usuarios/**",
-            "/chat/**"
     };
 
     private static final String[] PUBLIC_MATCHERS = {
@@ -45,8 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
                 .antMatchers(PUBLIC_MATCHERS).permitAll()
-                .anyRequest().authenticated();
+                .antMatchers(HttpMethod.GET, "/chat/**").authenticated();
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+        http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 

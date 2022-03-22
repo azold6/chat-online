@@ -7,6 +7,7 @@ import com.example.chatonline.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class ChatController {
     @Autowired
     UsuarioService usuarioService;
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "/usuarios")
     public ResponseEntity<List<Usuario>> findOnlineUsers(){
         List<Usuario> usuarios = usuarioService.findByOnlineUsers();
@@ -28,6 +30,7 @@ public class ChatController {
         return ResponseEntity.ok().body(usuarios);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "/mensagens")
     public ResponseEntity<List<Mensagem>> findMessages(){
         List<Mensagem> obj = chatService.findMessages();
